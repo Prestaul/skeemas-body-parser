@@ -16,16 +16,18 @@ var skeemas = require('skeemas'),
 
 skeemas.use(skeemasBodyParser);
 
-app.post('/foo', skeemas.bodyParser({
-        type: 'object',
-        properties: {
-            name: { type:'string' },
-            things: { 
-                type: 'array',
-                minItems: 1
-            }
+var fooSchema = {
+    type: 'object',
+    properties: {
+        name: { type:'string' },
+        things: { 
+            type: 'array',
+            minItems: 1
         }
-    }), function(req, res, next) {
+    }
+};
+
+app.post('/foo', skeemas.bodyParser(fooSchema), function(req, res, next) {
     // If we get here then we know our req.body is valid according to 
     // the schema.
 });
@@ -43,13 +45,13 @@ skeemas.use(skeemasBodyParser);
 var validator = skeemas();
 
 // Add a reference
-validator.addRef('/foo.schema', fooSchema);
+validator.addRef('/foo', fooSchema);
 
 // Validate against it
-validator.validate(foo, '/foo.schema').valid; // true|false
+validator.validate(foo, '/foo').valid; // true|false
 
 // Create middleware
-app.post('/foo', skeemas.bodyParser('/foo.schema'), newFooHandler);
+app.post('/foo', skeemas.bodyParser('/foo'), newFooHandler);
 ```
 
 ## Invalid Bodies
