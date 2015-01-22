@@ -4,13 +4,6 @@ module.exports = function(protoValidator) {
 	protoValidator.bodyParser = function(schema, options) {
 		if(!schema) throw new Error('skeemas.bodyParser called without schema');
 
-		if(typeof schema === 'string') {
-			// Resolve this schema now so we get an error at initialization and not at runtime if missing/invalid
-			var uri = schema;
-			schema = this._refs.get(uri);
-			if(!schema) throw new Error('Unable to locate schema ref (' + uri + ') for skeemas.bodyParser middleware');
-		}
-
 		var validator = this,
 			failureCode = options && options.failureCode || 422,
 			failureResponse = options && options.failureResponse || function(result) {
