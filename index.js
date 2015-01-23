@@ -15,7 +15,7 @@ module.exports = function(protoValidator) {
 				};
 			};
 
-		return [bodyParser, function(req, res, next) { console.log('before', req.body); next(); }, function(req, res, next) {
+		return [bodyParser, function(req, res, next) {
 			var result = validator.validate(req.body, schema);
 
 			if(!result.valid) return res.status(failureCode).json(failureResponse(result));
