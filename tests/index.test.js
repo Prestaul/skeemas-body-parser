@@ -82,6 +82,7 @@ describe('skeemas-body-parser plugin', function() {
 			var middleware = validator.bodyParser({
 					properties: {
 						foo: { type:'string' },
+						boo: { default:'far' },
 						nested: {
 							properties: {
 								stuff: {
@@ -107,6 +108,7 @@ describe('skeemas-body-parser plugin', function() {
 
 			assert.deepEqual(req.body, {
 				foo: 'bar',
+				boo: 'far',
 				nested: {
 					stuff: [1, 2, 3]
 				}

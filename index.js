@@ -16,7 +16,7 @@ module.exports = function(protoValidator) {
 			};
 
 		return [bodyParser, function(req, res, next) {
-			var result = validator.validate(req.body, schema);
+			var result = validator.validate(req.body, schema, { cleanWithDefaults:true });
 
 			if(!result.valid) return res.status(failureCode).json(failureResponse(result));
 
