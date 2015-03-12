@@ -1,5 +1,5 @@
 # skeemas-body-parser
-Body parsing middleware with json-schema valiation. This utility is a plugin for the [skeemas](https://github.com/Prestaul/skeemas) validation library.
+Body parsing middleware with json-schema validation. This utility is a plugin for the [skeemas](https://github.com/Prestaul/skeemas) validation library.
 
 ## Install
 ```js
