@@ -1,6 +1,6 @@
 {
   "name": "skeemas-body-parser",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Body parsing middleware with json-schema valiation",
   "main": "index.js",
   "scripts": {
