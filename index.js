@@ -4,9 +4,12 @@ module.exports = function(protoValidator) {
 	protoValidator.bodyParser = function(schema, options) {
 		if(!schema) throw new Error('skeemas.bodyParser called without schema');
 
+		options = options || {};
+
 		var validator = this,
-			failureCode = options && options.failureCode || 422,
-			failureResponse = options && options.failureResponse || function(result) {
+			addDefaults = typeof options.addDefaults === 'boolean' ? options.addDefaults : true,
+			failureCode = options.failureCode || 422,
+			failureResponse = options.failureResponse || function(result) {
 				return {
 					status: 'fail',
 					data: {
@@ -16,7 +19,7 @@ module.exports = function(protoValidator) {
 			};
 
 		return [bodyParser, function(req, res, next) {
-			var result = validator.validate(req.body, schema, { cleanWithDefaults:true });
+			var result = validator.validate(req.body, schema, { cleanWithDefaults:addDefaults });
 
 			if(!result.valid) return res.status(failureCode).json(failureResponse(result));
 

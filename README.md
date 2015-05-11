@@ -81,3 +81,23 @@ skeemas.bodyParser(schema, {
     }
 });
 ```
+
+## Schema Defaults
+Skeemas will append your schema's default values when non-required object properties are missing in your post bodies. For example, if `foo` is not in your body it will be set to `'bar'` using this schema:
+
+```json
+{
+    "type": "object",
+    "properties": {
+        "foo": {
+            "default": "bar"
+        }
+    }
+}
+```
+
+To disable setting of defaults, set the `addDefaults` option to `false`:
+
+```js
+skeemas.bodyParser(schema, { addDefaults: false });
+```

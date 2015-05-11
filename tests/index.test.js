@@ -82,7 +82,7 @@ describe('skeemas-body-parser plugin', function() {
 			var middleware = validator.bodyParser({
 					properties: {
 						foo: { type:'string' },
-						boo: { default:'far' },
+						boo: {},
 						nested: {
 							properties: {
 								stuff: {
@@ -108,11 +108,46 @@ describe('skeemas-body-parser plugin', function() {
 
 			assert.deepEqual(req.body, {
 				foo: 'bar',
-				boo: 'far',
 				nested: {
 					stuff: [1, 2, 3]
 				}
 			});
+		});
+
+		it('should add defaults', function() {
+			var middleware = validator.bodyParser({
+					properties: {
+						foo: { type:'string' },
+						boo: { default:'far' },
+					}
+				})[1],
+				req = {
+					body : {}
+				},
+				res = {};
+
+			middleware(req, response(res), noop);
+
+			assert.deepEqual(req.body, {
+				boo: 'far'
+			});
+		});
+
+		it('should not add defaults with addDefaults:false', function() {
+			var middleware = validator.bodyParser({
+					properties: {
+						foo: { type:'string' },
+						boo: { default:'far' },
+					}
+				}, { addDefaults:false })[1],
+				req = {
+					body : {}
+				},
+				res = {};
+
+			middleware(req, response(res), noop);
+
+			assert.deepEqual(req.body, {});
 		});
 	});
 });

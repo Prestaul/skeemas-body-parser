@@ -13,8 +13,11 @@
   },
   "keywords": [
     "json-schema",
-    "middleware",
     "body parser",
+    "validation",
+    "sanitize",
+    "defaults",
+    "middleware",
     "express"
   ],
   "author": "Matt Dunlap <mpdunlap@gmail.com>",
